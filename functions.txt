@@ -1,0 +1,7 @@
+#number:binary_code:name:arg_1:arg_2:arg_3:description
+#0:00000000:stop:none:none:none:stops the cpu
+#1:00000001:no operation:none:none:none:increment counter, no operation
+#2:00000010:jump:reg:none:none:set register to line
+#3:00000011:store select reg:reg:value:none:stores a certain value into a specified register
+#4:00000100:add:mem 1(input):mem 2(input):mem 3(destination):adds two values and outputs the difference
+#5:00000101:subtract:mem 1(input):mem 2(input):mem 3(destination):subtracts two values and outputs the difference

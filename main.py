@@ -1,48 +1,52 @@
-def parse_text(text):
-    new_text = None
-    limit = 15
-    for x in range(len(text)//limit+1):
-        offset = 0
-        if x == 0:
-            continue
-        elif x == 1:
-            while True:
-                if text[x*limit-offset-1] == " ":
-                    # text[x*10-offset] = "\n"
-                    print("2nd itteration, whitespace: ", x*limit-offset)
-                    new_text = text[:x*limit-offset-1] + "\n" + text[x*limit-offset:]
-                    break
-                elif offset >= limit:
-                    # text[x * 10 - offset] = "\n"
-                    new_text = text[:x*limit-offset-1] + "\n" + text[x*limit-offset:]
-                    break
-                else:
-                    offset += 1
+def parse_text(text: str):
+    limit = 10
+    past_ws_index = 0
+    index = 0
+    while True:
+        if text.find(" ", index + 1) > 0:
+            index = text.find(" ", index + 1)
+            if index - past_ws_index > limit:
+                text = text[:index] + "\n" + text[index+1:]
+                past_ws_index = index
         else:
-            while True:
-                if text[x*limit-offset-1] == " ":
-                    # text[x*10-offset] = "\n"
-                    print("later itteration, whitespace: ", x*limit-offset)
-                    new_text = new_text[:x*limit-offset] + "\n" + new_text[x*limit-offset:].strip()
-                    break
-                elif offset >= limit:
-                    # text[x * 10 - offset] = "\n"
-                    new_text = new_text[:x*limit-offset] + "\n" + new_text[x*limit-offset:].strip()
-                    break
-                else:
-                    offset += 1
-    return new_text
-# print(parse_text("1234567 1 123"))
-# print(parse_text("lol and null").find("\n"))
+            break
+    return text
+
+def to_list(text: str):
+    return text.split("\n")
+
+# print(parse_text("one, two, three, four, five, six"))
+# print(to_list(parse_text("one, two, three, four, five, six")))
+
 def build_first():
     full_text: list[str] = []
+    file = open("functions.txt", "r")
+    for i, x in enumerate(file.readlines()):
+        if x[1] != "n":
+            full_text.append(x.split(":"))
+    print(full_text)
+    return full_text
 
+list2 = []
+list3 = [] # to be done later, parse and create the string lists for the other columns
 def draw():
-    for x in range(3):
-        if x == 0:
-            a = 1 #first column
-        elif x == 1:
-            a = 1 #2nd column
-        elif x == 2:
-            a = 1 #3rd column
+    for x in range(max(len(text), len(list2), len(list3))): # rows
+        for y in range(3):
+            if y == 0:
+                for z in text[x][:3]:
+                    print(z, end=" ")
+                print()
+                print(f"arg_1: {text[x][3]}, arg_2: {text[x][4]}, arg_3: {text[x][5]}")
+                print(text[x][6])
+                print()
+            elif y == 1:
+                a = 1 #2nd column
+            elif y == 2:
+                a = 1 #3rd column
+            print()
 
+text = build_first()
+while True:
+    draw()
+    print()
+    next_op = input("next op?")
